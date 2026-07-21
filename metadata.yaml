@@ -1,0 +1,22 @@
+##
+# GoTrust CMP — GTM Community Template Gallery metadata
+#
+# `sha` below is the Git commit SHA that introduced this version of template.tpl, per
+# https://developers.google.com/tag-platform/tag-manager/templates/gallery — not a content
+# hash. When template.tpl changes again, add a NEW entry above this one with that commit's
+# SHA rather than editing this one (versions are ordered most-recent-first).
+##
+homepage: "https://gotrust.tech"
+# TODO: replace with a hosted URL for INSTALLATION-GUIDE.md (e.g. a page on your docs site,
+# or the rendered file in the dedicated GitHub repo this gets submitted from) before submitting.
+documentation: "https://gotrust.tech"
+versions:
+  - sha: a6e67013f7b057fa9efa5ccaa4e7df9c1e6b70fd
+    changeNotes: >
+      Initial release. Sets the Google Consent Mode default-denied baseline via
+      setDefaultConsentState on the Consent Initialization trigger, then loads and
+      mounts the GoTrust Consent Management Platform (CMP) banner. Supports open-ended
+      multi-tenant/on-prem base URLs, dataLayer-based error reporting, a duplicate-firing
+      guard, and Debug Mode. Categories, ___WEB_PERMISSIONS___, and ___TESTS___ format
+      cross-checked against real published templates (Didomi's GTM CMP template, Google's
+      own firestore-value-template) after an initial import error.
