@@ -11,7 +11,7 @@ homepage: "https://gotrust.tech"
 # or the rendered file in the dedicated GitHub repo this gets submitted from) before submitting.
 documentation: "https://gotrust.tech"
 versions:
-  - sha: a6e67013f7b057fa9efa5ccaa4e7df9c1e6b70fd
+  - sha: da5574efaf592f6b32465b5a52a0f5ec6ac8697f
     changeNotes: >
       Initial release. Sets the Google Consent Mode default-denied baseline via
       setDefaultConsentState on the Consent Initialization trigger, then loads and
