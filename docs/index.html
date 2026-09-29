@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GoTrust GTM Template Docs</title>
+    <meta
+      name="description"
+      content="Install the GoTrust consent banner with Google Tag Manager and Google Consent Mode v2: setup, settings, troubleshooting and debug mode."
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --surface: #f6f7f9;
+        --text: #1b1f24;
+        --muted: #5b6470;
+        --border: #dde1e6;
+        --accent: #2059f8;
+        --accent-soft: #e8eefe;
+        --code-bg: #f1f3f6;
+        --warn-bg: #fff6e0;
+        --warn-border: #f0c14b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0f1216;
+          --surface: #171b21;
+          --text: #e6e9ed;
+          --muted: #9aa4b1;
+          --border: #2a3039;
+          --accent: #7c9dff;
+          --accent-soft: #1b2440;
+          --code-bg: #1d222a;
+          --warn-bg: #2a2412;
+          --warn-border: #8a6d1f;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #0f1216;
+        --surface: #171b21;
+        --text: #e6e9ed;
+        --muted: #9aa4b1;
+        --border: #2a3039;
+        --accent: #7c9dff;
+        --accent-soft: #1b2440;
+        --code-bg: #1d222a;
+        --warn-bg: #2a2412;
+        --warn-border: #8a6d1f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.6 system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+      a {
+        color: var(--accent);
+      }
+      header {
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      header .wrap {
+        padding-top: 32px;
+        padding-bottom: 28px;
+      }
+      .eyebrow {
+        margin: 0 0 6px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+        line-height: 1.25;
+      }
+      .lede {
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+      nav.toc {
+        margin: 28px 0 8px;
+        padding: 16px 20px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface);
+      }
+      nav.toc p {
+        margin: 0 0 6px;
+        font-weight: 600;
+      }
+      nav.toc ol {
+        margin: 0;
+        padding-left: 20px;
+        columns: 2 220px;
+      }
+      h2 {
+        margin: 44px 0 12px;
+        padding-top: 8px;
+        font-size: 23px;
+        line-height: 1.3;
+      }
+      h3 {
+        margin: 28px 0 8px;
+        font-size: 18px;
+      }
+      p,
+      li {
+        max-width: 72ch;
+      }
+      code {
+        padding: 1px 5px;
+        border-radius: 4px;
+        background: var(--code-bg);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        overflow-wrap: anywhere;
+      }
+      pre {
+        overflow-x: auto;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--code-bg);
+        line-height: 1.5;
+      }
+      pre code {
+        padding: 0;
+        background: none;
+        font-size: 14px;
+      }
+      .table-scroll {
+        overflow-x: auto;
+        margin: 12px 0;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+      table {
+        width: 100%;
+        min-width: 560px;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      .note,
+      .warn {
+        margin: 16px 0;
+        padding: 12px 16px;
+        border-radius: 8px;
+      }
+      .note {
+        border-left: 4px solid var(--accent);
+        background: var(--accent-soft);
+      }
+      .warn {
+        border-left: 4px solid var(--warn-border);
+        background: var(--warn-bg);
+      }
+      .note p,
+      .warn p {
+        margin: 0;
+      }
+      ol.steps > li {
+        margin-bottom: 12px;
+      }
+      footer {
+        margin-top: 56px;
+        padding: 24px 0 40px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 25px;
+        }
+        h2 {
+          font-size: 21px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <p class="eyebrow">GoTrust CMP · Google Tag Manager</p>
+        <h1>Install GoTrust with Google Tag Manager</h1>
+        <p class="lede">
+          The <strong>GoTrust – Consent Mode &amp; CMP Loader</strong> template adds the GoTrust
+          consent banner to your site through GTM, with Google Consent Mode v2 set up for you.
+        </p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <nav class="toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">What the template does</a></li>
+          <li><a href="#before">Before you start</a></li>
+          <li><a href="#install">Install</a></li>
+          <li><a href="#settings">Settings</a></li>
+          <li><a href="#consent-flow">How consent reaches Google</a></li>
+          <li><a href="#preferences">Reopening cookie preferences</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+          <li><a href="#debug-mode">Misconfiguration debug mode</a></li>
+          <li><a href="#support">Support</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="overview">What the template does</h2>
+      <p>Every time a page loads, the template:</p>
+      <ol>
+        <li>
+          <strong>Sets the Consent Mode default</strong> before any other tag runs. Visitors in the
+          EEA, UK and Switzerland always start with every consent type denied (except
+          <code>security_storage</code>). Everywhere else starts with the defaults you choose in the
+          tag, which are all granted unless you change them.
+        </li>
+        <li>
+          <strong>Restores a returning visitor's choice</strong> straight away, before the banner
+          loads, so tags on the first page view already see it.
+        </li>
+        <li>
+          <strong>Loads the GoTrust banner.</strong> When the visitor accepts, rejects or saves
+          their choices, the template passes the new state to your Google tags with Google's
+          <code>updateConsentState</code> API.
+        </li>
+      </ol>
+      <p>
+        Appearance, categories, languages and cookie lists are still managed in your GoTrust
+        dashboard, exactly as with the HTML embed.
+      </p>
+      <div class="warn">
+        <p>
+          Use this template <strong>or</strong> the HTML embed code from your dashboard, not both.
+          Loading GoTrust twice sends consent signals twice.
+        </p>
+      </div>
+
+      <h2 id="before">Before you start</h2>
+      <ul>
+        <li>Edit and publish access to your GTM container.</li>
+        <li>
+          From your GoTrust dashboard (<strong
+            >Cookie Consent Management → your domain → Consent Code</strong
+          >, under “Configuration Details”): your <strong>Config ID</strong>,
+          <strong>Domain</strong> and <strong>Environment</strong>.
+        </li>
+      </ul>
+
+      <h2 id="install">Install</h2>
+      <ol class="steps">
+        <li>
+          <strong>Add the template.</strong> In GTM, open
+          <strong>Templates → Tag Templates → Search Gallery</strong>, search for “GoTrust”, select
+          <strong>GoTrust – Consent Mode &amp; CMP Loader</strong> and click
+          <strong>Add to workspace</strong>.
+        </li>
+        <li>
+          <strong>Create the tag.</strong> Go to <strong>Tags → New</strong>, name it (for example
+          “GoTrust CMP”) and choose the GoTrust template as the tag type.
+        </li>
+        <li>
+          <strong>Fill in the three required fields</strong> from your dashboard: GoTrust Domain ID
+          (Config ID), Registered Site URL (Domain) and GoTrust Platform Base URL (Environment). The
+          other settings work as they are; see <a href="#settings">Settings</a> if you want to
+          change them.
+        </li>
+        <li>
+          <strong>Set the trigger to Consent Initialization - All Pages.</strong> If your container
+          doesn't have it yet, create it under
+          <strong>Triggers → New → Consent Initialization</strong>. This is required: on any other
+          trigger the default is set too late, after other tags may already have run.
+        </li>
+        <li>
+          <strong>Preview and check.</strong> Click <strong>Preview</strong>, open your site and
+          confirm that:
+          <ul>
+            <li>the GoTrust banner appears;</li>
+            <li>
+              in Tag Assistant, the tag fired on <strong>Consent Initialization</strong>, before any
+              other tag;
+            </li>
+            <li>
+              the <strong>Consent</strong> tab shows the default state, and an update after you make
+              a choice in the banner.
+            </li>
+          </ul>
+        </li>
+        <li><strong>Publish</strong> the container.</li>
+      </ol>
+      <div class="note">
+        <p>
+          Google tags (GA4, Google Ads, Floodlight) read Consent Mode automatically. For other tags,
+          use each tag's <strong>Consent Settings → Require additional consent</strong> to make it
+          wait for the consent types it needs.
+        </p>
+      </div>
+
+      <h2 id="settings">Settings</h2>
+
+      <h3>Required</h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>What to enter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GoTrust Domain ID</td>
+              <td>The <strong>Config ID</strong> from your dashboard's Consent Code step.</td>
+            </tr>
+            <tr>
+              <td>Registered Site URL</td>
+              <td>
+                The <strong>Domain</strong> value, for example <code>https://www.example.com</code>.
+              </td>
+            </tr>
+            <tr>
+              <td>GoTrust Platform Base URL</td>
+              <td>The <strong>Environment</strong> value (an <code>https://</code> URL).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Consent Mode Type</h3>
+      <p>
+        <strong>Advanced</strong> (recommended) makes other tags wait up to
+        <em>Wait For Update</em> milliseconds (2000 by default) for the visitor's choice before
+        using the default state. <strong>Basic</strong> makes them use the default immediately.
+      </p>
+
+      <h3>Consent Mode Defaults</h3>
+      <p>
+        One setting per consent type (<code>ad_storage</code>, <code>analytics_storage</code>,
+        <code>ad_user_data</code>, <code>ad_personalization</code>,
+        <code>functionality_storage</code>, <code>personalization_storage</code>,
+        <code>security_storage</code>). These apply to visitors outside the EEA, UK and Switzerland
+        until they make a choice. All are <strong>Granted</strong> by default.
+      </p>
+      <p>
+        The EEA, UK and Switzerland always start denied and can't be changed here, because those
+        regions require consent before tracking.
+      </p>
+
+      <h3>Regional overrides (optional)</h3>
+      <p>
+        Add a row to give specific regions their own defaults, for example US states with opt-out
+        privacy laws. Enter comma-separated ISO codes such as <code>US-CA, US-CO, BR</code>
+        and choose Granted or Denied for the types you want to change; types left “Not set” use the
+        global default. Google applies the most specific matching region.
+      </p>
+      <p>
+        Codes for the EEA, UK and Switzerland (including subdivisions such as <code>ES-CT</code>)
+        are ignored.
+      </p>
+
+      <h3>Advanced Settings</h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Default</th>
+              <th>When to change it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wait For Update (ms)</td>
+              <td><code>2000</code></td>
+              <td>Only with Advanced mode, and only if GoTrust support advises it.</td>
+            </tr>
+            <tr>
+              <td>GoTrust CDN Bundle Base URL</td>
+              <td><code>https://cdn.gotrust.tech/gotrust-client</code></td>
+              <td>
+                Leave as is. The template can only load scripts from GoTrust's CDN; contact support
+                if your deployment serves the script from another domain.
+              </td>
+            </tr>
+            <tr>
+              <td>Banner Mount Selector</td>
+              <td><code>#gotrust-cookie-banner</code></td>
+              <td>
+                Only to place the banner inside a specific element. If the element doesn't exist,
+                the banner adds its own container, so no HTML changes are needed.
+              </td>
+            </tr>
+            <tr>
+              <td>Redact ads data (<code>ads_data_redaction</code>)</td>
+              <td>On</td>
+              <td>
+                Removes ad click identifiers from Google ads requests while
+                <code>ad_storage</code> is denied.
+              </td>
+            </tr>
+            <tr>
+              <td>Pass ad click information through URLs (<code>url_passthrough</code>)</td>
+              <td>On</td>
+              <td>Keeps ad click and session information in URLs when cookies can't be stored.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Debug Mode</h3>
+      <p>
+        Logs the template's steps to the browser console. Turn it on while testing and off before
+        publishing. Errors are always reported, whether or not it's on (see
+        <a href="#troubleshooting">Troubleshooting</a>).
+      </p>
+
+      <h2 id="consent-flow">How consent reaches Google</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Moment</th>
+              <th>What happens</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Consent Initialization</td>
+              <td>
+                Default set with <code>setDefaultConsentState</code>: your global defaults, denied
+                in the EEA/UK/CH, plus any regional overrides.
+              </td>
+            </tr>
+            <tr>
+              <td>Returning visitor</td>
+              <td>
+                Their saved choice is applied with <code>updateConsentState</code> before the banner
+                loads.
+              </td>
+            </tr>
+            <tr>
+              <td>Visitor makes a choice</td>
+              <td>
+                The new state is sent with <code>updateConsentState</code> as soon as they click.
+              </td>
+            </tr>
+            <tr>
+              <td>Browser sends Global Privacy Control</td>
+              <td>
+                All non-essential consent types are set to denied and the banner is not shown.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>How GoTrust categories map to Consent Mode:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>GoTrust category</th>
+              <th>Consent types</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Marketing / Advertising</td>
+              <td>
+                <code>ad_storage</code>, <code>ad_user_data</code>, <code>ad_personalization</code>,
+                <code>personalization_storage</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Analytics</td>
+              <td><code>analytics_storage</code></td>
+            </tr>
+            <tr>
+              <td>Functional</td>
+              <td><code>functionality_storage</code></td>
+            </tr>
+            <tr>
+              <td>Necessary</td>
+              <td><code>security_storage</code> (always granted)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="preferences">Reopening cookie preferences</h2>
+      <p>
+        The banner has its own floating settings button. To open preferences from your own link or
+        button as well, call <code>showGoTrustCookiePreferences</code>:
+      </p>
+      <pre><code>&lt;button type="button" onclick="window.showGoTrustCookiePreferences &amp;&amp; window.showGoTrustCookiePreferences(true)"&gt;
+  Cookie preferences
+&lt;/button&gt;</code></pre>
+      <p>You can add this to your site's HTML or as a GTM Custom HTML tag.</p>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <p>
+        When something fails, the template always pushes a <code>gotrust_template_error</code> event
+        to the <code>dataLayer</code>, with <code>gotrust_error_stage</code> and
+        <code>gotrust_error_message</code>. Look for it in Tag Assistant's Data Layer tab.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Symptom or error stage</th>
+              <th>Likely cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Banner never appears</td>
+              <td>The tag isn't firing, or is on the wrong trigger.</td>
+              <td>
+                Attach it to <strong>Consent Initialization - All Pages</strong> and check it fires
+                in Preview.
+              </td>
+            </tr>
+            <tr>
+              <td>Tags ignore consent choices</td>
+              <td>
+                Another tag reads consent before this one runs, or non-Google tags have no consent
+                settings.
+              </td>
+              <td>
+                Keep this tag on Consent Initialization; add <em>Require additional consent</em> to
+                non-Google tags.
+              </td>
+            </tr>
+            <tr>
+              <td><code>config</code></td>
+              <td>A required field is empty or not a valid URL.</td>
+              <td>Re-copy the three required values from the Consent Code step.</td>
+            </tr>
+            <tr>
+              <td><code>permission_denied</code></td>
+              <td>The template's permissions were changed in your container.</td>
+              <td>Restore the template's default permissions, or re-add it from the Gallery.</td>
+            </tr>
+            <tr>
+              <td><code>shim_load_failed</code> / <code>bundle_load_failed</code></td>
+              <td>Network or CDN problem, or a changed <em>GoTrust CDN Bundle Base URL</em>.</td>
+              <td>Reset that setting to the default and try again.</td>
+            </tr>
+            <tr>
+              <td><code>sdk_api_missing</code></td>
+              <td>The GoTrust script loaded but isn't the expected version.</td>
+              <td>Contact GoTrust support.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="debug-mode">Misconfiguration debug mode</h2>
+      <p>
+        GoTrust can check whether your installation lets a Google tag run before the consent default
+        or the IAB TCF stub is in place. This works for both GTM and HTML embed installs.
+      </p>
+      <p>
+        Open your site with <code>?gt-shim-debug=1</code> added to the URL (for example
+        <code>https://www.example.com/?gt-shim-debug=1</code>) and check the browser console.
+        Problems appear as warnings starting with
+        <code>[GoTrust Shim] MISCONFIGURATION DETECTED:</code>. Nothing is logged for normal
+        visitors.
+      </p>
+      <p>The checks look for:</p>
+      <ul>
+        <li>
+          <strong>A Google or ad-tech script placed before the GoTrust script</strong> in the page
+          HTML, the most common mistake with HTML embeds.
+        </li>
+        <li>
+          <strong>Entries already in <code>window.dataLayer</code></strong> before GoTrust set the
+          default, meaning another snippet pushed to it first. This check is skipped for GTM
+          template installs, where GTM always fills the dataLayer first and the template sets the
+          default.
+        </li>
+      </ul>
+      <div class="note">
+        <p>
+          <strong>Check Google Tag Gateway first.</strong> If the flagged tag uses Google Tag
+          Gateway, its requests go through your own domain, which can make these checks report a
+          false positive. If Tag Gateway isn't involved, move the GoTrust script (or this GTM tag's
+          trigger) earlier so it runs before other tags.
+        </p>
+      </div>
+
+      <h2 id="support">Support</h2>
+      <p>
+        Email <a href="mailto:support@gotrust.tech">support@gotrust.tech</a>, or open an issue on
+        <a href="https://github.com/DEVTekhsters/gotrust-gtm-community-template">github.com/DEVTekhsters/gotrust-gtm-community-template</a>.
+      </p>
+
+      <footer>
+        <p>
+          GoTrust – Consent Mode &amp; CMP Loader for Google Tag Manager. Licensed under Apache 2.0.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
