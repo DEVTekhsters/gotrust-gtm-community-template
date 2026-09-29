@@ -2,7 +2,5 @@ homepage: 'https://gotrust.tech'
 documentation: 'https://gotrust.tech/docs/gtm-template'
 versions:
   # Latest version
-  # Replace the sha below with the GitHub commit SHA that contains this template.tpl
-  # before submitting to the Community Template Gallery.
-  - sha: REPLACE_WITH_GITHUB_COMMIT_SHA_OF_TEMPLATE_TPL
+  - sha: 5b7cb2d3a7db232c5dd483038544bbb378836384
     changeNotes: Initial release. Sets region-aware Consent Mode defaults (always denied in the EEA, UK and Switzerland, configurable elsewhere), restores returning visitors' choices and passes every consent choice to Google tags with updateConsentState, then loads the GoTrust CMP banner.
